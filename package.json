@@ -1,0 +1,17 @@
+{
+  "name": "cloudant-helpers",
+  "version": "0.0.8",
+  "description": "Cloudant helpers for common tasks such as securely call the api avoiding 429 error",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cloudant",
+    "cloudant-helpers",
+    "cloudant-api",
+    "node-cloudant"
+  ],
+  "author": "Carlos Galarza <carloslfu@gmail.com>",
+  "license": "MIT"
+}
