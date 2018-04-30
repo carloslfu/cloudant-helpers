@@ -1,4 +1,4 @@
-module.exports.createDBs = async function (cloudant, dbNames) {
+export const createDBs = async function (cloudant, dbNames) {
   try {
     for (let i = 0, name; name = dbNames[i]; i++) {
       await cloudant.db.create(name)
@@ -8,7 +8,7 @@ module.exports.createDBs = async function (cloudant, dbNames) {
   }
 }
 
-module.exports.destroyDBs = async function (cloudant) {
+export const destroyDBs = async function (cloudant) {
   try {
     let list = await cloudant.db.list()
     for (let i = 0, name; name = list[i]; i++) {
@@ -21,7 +21,7 @@ module.exports.destroyDBs = async function (cloudant) {
 
 let stressTypes = ['lookups', 'writes', 'queries']
 
-module.exports.stressCloudant = async function stressCloudant (cloudant, dbName, type, num) {
+export const stressCloudant = async function stressCloudant (cloudant, dbName, type, num) {
   try {
     let DB = await cloudant.db.use(dbName)
     let iters = [...Array(num).keys()]
@@ -48,14 +48,14 @@ module.exports.stressCloudant = async function stressCloudant (cloudant, dbName,
 }
 
 // Cloudant wrapper for resilient api calls
-module.exports.cdt = (inst, name, data) => {
-  const _cdt = async (inst, name, data, resolve, reject) => {
+export const cdt = (inst, name, ...data) => {
+  const _cdt = async (inst, name, resolve, reject, data) => {
     try {
-      resolve(await inst[name](data))
+      resolve(await inst[name](...data))
     } catch (e) {
       if (e.statusCode === 429) {
         setTimeout(() => {
-          _cdt(inst, name, data, resolve, reject)
+          _cdt(inst, name, resolve, reject, data)
         }, 1000)
       } else {
         reject(e)
@@ -64,6 +64,6 @@ module.exports.cdt = (inst, name, data) => {
   }
 
   return new Promise((resolve, reject) => {
-    _cdt(inst, name, data, resolve, reject)
+    _cdt(inst, name, resolve, reject, data)
   })
 }

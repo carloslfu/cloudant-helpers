@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "outDir": "dist/",
+    "module": "commonjs",
+    "declaration": true
+  },
+  "files": [
+    "index.ts"
+  ],
+  "include": [
+    "**.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

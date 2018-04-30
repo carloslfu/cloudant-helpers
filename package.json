@@ -12,6 +12,10 @@
     "cloudant-api",
     "node-cloudant"
   ],
+  "files": [
+    "dist/",
+    "LICENCE"
+  ],
   "author": "Carlos Galarza <carloslfu@gmail.com>",
   "license": "MIT"
 }
