@@ -48,8 +48,8 @@ export const stressCloudant = async function stressCloudant (cloudant, dbName, t
 }
 
 // Cloudant wrapper for resilient api calls
-export const cdt = (inst, name, ...data) => {
-  const _cdt = async (inst, name, resolve, reject, data) => {
+export const cdt = (inst, name: string, ...data): Promise<any> => {
+  const _cdt = async (inst, name: string, resolve, reject, data) => {
     try {
       resolve(await inst[name](...data))
     } catch (e) {
